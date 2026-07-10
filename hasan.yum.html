@@ -1,92 +1,481 @@
-<!doctype html>
-<html lang="ar">
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Yummyz-menu</title>
-<style>
-:root{--accent:#ffcc00;--bg:#000;--card:#111;--text:#fff;--muted:#bbb;font-family:Arial,Segoe UI,Helvetica,sans-serif}
-body{margin:0;background:var(--bg);color:var(--text);direction:rtl}
-.header{padding:18px;border-bottom:3px solid var(--accent);display:flex;justify-content:space-between;align-items:center;max-width:1000px;margin:0 auto}
-.brand{font-size:28px;color:var(--accent);font-weight:700}
-.subtitle{color:var(--muted);font-size:14px;margin-top:6px}
-.container{max-width:1000px;margin:18px auto;padding:0 16px}
-.card{background:var(--card);padding:14px;border-radius:10px;margin-bottom:12px;box-shadow:0 2px 6px rgba(0,0,0,.5)}
-.section-title{color:var(--accent);font-weight:700;margin-bottom:8px;border-bottom:1px solid rgba(255,204,0,0.12);padding-bottom:8px}
-ul{list-style:none;padding:0;margin:0}
-li.item{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #222}
-li.item:last-child{border-bottom:0}
-.price{color:var(--accent);font-weight:800}
-.offer{background:var(--accent);color:#000;padding:12px;border-radius:10px;text-align:center;font-weight:700;margin:12px 0}
-.footer{max-width:1000px;margin:18px auto;text-align:center;color:var(--muted);font-size:13px;padding-bottom:30px}
-.contact{color:var(--accent);font-weight:700;margin-top:6px}
-.small{color:var(--muted);font-size:13px}
-</style>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Yummyz restaurant menu featuring burgers, chicken sandwiches, appetizers, and drinks."
+  >
+
+  <title>Yummyz Menu</title>
+
+  <style>
+    :root {
+      --primary: #d99a00;
+      --primary-dark: #b87f00;
+      --secondary: #e46f00;
+
+      --dark: #1f1f1f;
+      --text: #333333;
+      --muted: #777777;
+      --background: #f7f7f7;
+      --card: #ffffff;
+      --border: #ececec;
+
+      --offer-background: #e8bf47;
+      --offer-text: #4d3500;
+
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      direction: ltr;
+      background: var(--background);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    header {
+      padding: 32px 20px;
+      background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+      );
+      color: var(--dark);
+    }
+
+    .header-content {
+      width: min(100%, 900px);
+      margin: 0 auto;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .brand {
+      font-size: clamp(2.2rem, 8vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 1;
+    }
+
+    .subtitle {
+      margin-top: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .contact {
+      display: inline-block;
+      margin-top: 14px;
+
+      color: var(--dark);
+      font-size: 1.05rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .contact:hover {
+      text-decoration: underline;
+    }
+
+    .qr-message {
+      max-width: 280px;
+      padding: 14px 18px;
+
+      background: rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      border-radius: 14px;
+
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-align: center;
+
+      backdrop-filter: blur(6px);
+    }
+
+    .container {
+      width: min(100% - 32px, 900px);
+      margin: 28px auto;
+    }
+
+    .offer {
+      margin-bottom: 24px;
+      padding: 18px;
+
+      background: var(--offer-background);
+      color: var(--offer-text);
+
+      border: 2px dashed var(--primary-dark);
+      border-radius: var(--radius);
+
+      font-size: 1.05rem;
+      font-weight: 900;
+      text-align: center;
+
+      box-shadow: var(--shadow);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      overflow: hidden;
+
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+
+      box-shadow: var(--shadow);
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.11);
+    }
+
+    .section-title {
+      padding: 16px 18px;
+
+      background: var(--dark);
+      color: #ffffff;
+
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+
+    .menu-list {
+      list-style: none;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+
+      padding: 15px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .item:last-child {
+      border-bottom: none;
+    }
+
+    .item-name {
+      font-weight: 700;
+    }
+
+    .price {
+      flex-shrink: 0;
+
+      color: var(--secondary);
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .currency {
+      margin-left: 3px;
+
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .full-width {
+      grid-column: 1 / -1;
+    }
+
+    .footer {
+      margin-top: 40px;
+      padding: 24px 16px;
+
+      background: var(--dark);
+      color: #ffffff;
+
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 700px) {
+      .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .qr-message {
+        width: 100%;
+        max-width: none;
+        text-align: left;
+      }
+
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .full-width {
+        grid-column: auto;
+      }
+    }
+
+    @media (max-width: 420px) {
+      header {
+        padding: 26px 16px;
+      }
+
+      .container {
+        width: min(100% - 20px, 900px);
+        margin-top: 20px;
+      }
+
+      .item {
+        padding: 14px;
+      }
+
+      .price {
+        font-size: 0.92rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<header class="header">
-  <div>
-    <div class="brand">Yummyz</div>
-    <div class="subtitle">برغر • دجاج • سندويش • مقبلات</div>
-    <div class="contact">📞 79 375 212</div>
-  </div>
-  <div style="text-align:left">
-    <div class="small">امسح الـQR المطبوَع على الطاولة لفتح هذه الصفحة</div>
-  </div>
-</header>
 
-<main class="container">
-  <div class="offer">عرض خاص: أي ساندويش + بطاطا + بيبسي فقط بـ 200,000 ل.ل</div>
+  <header>
+    <div class="header-content">
 
-  <section class="card">
-    <div class="section-title">🍔 برجر لحم</div>
-    <ul>
-      <li class="item"><span>برجر لبناني</span><span class="price">300,000</span></li>
-      <li class="item"><span>كلاسيك برغر</span><span class="price">350,000</span></li>
-      <li class="item"><span>ماشروم برغر</span><span class="price">400,000</span></li>
-      <li class="item"><span>موزوريلا برغر</span><span class="price">450,000</span></li>
-    </ul>
-  </section>
+      <div>
+        <div class="brand">Yummyz</div>
 
-  <section class="card">
-    <div class="section-title">🍗 برجر دجاج</div>
-    <ul>
-      <li class="item"><span>زنجر برغر</span><span class="price">350,000</span></li>
-      <li class="item"><span>برغر كوري</span><span class="price">350,000</span></li>
-      <li class="item"><span>كلاسيك دجاج</span><span class="price">300,000</span></li>
-      <li class="item"><span>باربكيو دجاج</span><span class="price">350,000</span></li>
-    </ul>
-  </section>
+        <div class="subtitle">
+          Burgers • Chicken • Sandwiches • Appetizers
+        </div>
 
-  <section class="card">
-    <div class="section-title">🌯 سندويش</div>
-    <ul>
-      <li class="item"><span>فاهيتا</span><span class="price">350,000</span></li>
-      <li class="item"><span>تشيكن ساب</span><span class="price">350,000</span></li>
-    </ul>
-  </section>
+        <a
+          class="contact"
+          href="tel:+96179375212"
+          aria-label="Call Yummyz restaurant"
+        >
+          📞 79 375 212
+        </a>
+      </div>
 
-  <section class="card">
-    <div class="section-title">🍟 مقبلات</div>
-    <ul>
-      <li class="item"><span>بطاطا مقلية صغيرة</span><span class="price">200,000</span></li>
-      <li class="item"><span>أجنحة دجاج</span><span class="price">250,000</span></li>
-      <li class="item"><span>>بطاطا مقلية كبيرة></span><span class="price">300,000</span></li>
-    </ul>
-  </section>
+      <div class="qr-message">
+        Scan the QR code on your table to open this menu.
+      </div>
 
-  <section class="card">
-    <div class="section-title">🥤 مشروبات</div>
-    <ul>
-      <li class="item"><span>بيبسي</span><span class="price">100,000</span></li>
-      <li class="item"><span>ماء</span><span class="price">50,000</span></li>
-    </ul>
-  </section>
+    </div>
+  </header>
 
-</main>
+  <main class="container">
 
-<footer class="footer">
-  © Yummyz • Yummyz-menu
-</footer>
+    <div class="offer">
+      ⭐ Special Offer: Any Sandwich + Fries + Pepsi for only + 200,000 L.L.
+    </div>
+
+    <div class="menu-grid">
+
+      <section class="card">
+        <h2 class="section-title">🍔 Beef Burgers</h2>
+
+        <ul class="menu-list">
+          <li class="item">
+            <span class="item-name">Lebanese Burger</span>
+
+            <span class="price">
+              300,000
+              <span class="currency">L.L.</span>
+            </span>
+          </li>
+
+          <li class="item">
+            <span class="item-name">Classic Burger</span>
+
+            <span class="price">
+              350,000
+              <span class="currency">L.L.</span>
+            </span>
+          </li>
+
+          <li class="item">
+            <span class="item-name">Mushroom Burger</span>
+
+            <span class="price">
+              400,000
+              <span class="currency">L.L.</span>
+            </span>
+          </li>
+
+          <li class="item">
+            <span class="item-name">Mozzarella Burger</span>
+
+            <span class="price">
+              450,000
+              <span class="currency">L.L.</span>
+            </span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2 class="section-title">🍗 Chicken Burgers</h2>
+
+        <ul class="menu-list">
+          <li class="item">
+            <span class="item-name">Zinger Burger</span>
+
+            <span class="price">
+              350,000
+              <span class="currency">L.L.</span>
+            </span>
+          </li>
+
+          <li class="item">
+            <span class="item-name">Korean Chicken Burger</span>
+
+            <span class="price">
+              350,000
+              <span class="currency">L.L.</span>
+            </span>
+          </li>
+
+          <li class="item">
+            <span class="item-name">Classic Chicken Burger</span>
+
+            <span class="price">
+              300,000
+              <span class="currency">L.L.</span>
+            </span>
+          </li>
+
+          <li class="item">
+            <span class="item-name">BBQ Chicken Burger</span>
+
+            <span class="price">
+              350,000
+              <span class="currency">L.L.</span>
+            </span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2 class="section-title">🌯 Sandwiches</h2>
+
+        <ul class="menu-list">
+          <li class="item">
+            <span class="item-name">Chicken Fajita</span>
+
+            <span class="price">
+              350,000
+              <span class="currency">L.L.</span>
+            </span>
+          </li>
+
+          <li class="item">
+            <span class="item-name">Chicken Sub</span>
+
+            <span class="price">
+              350,000
+              <span class="currency">L.L.</span>
+            </span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2 class="section-title">🍟 Appetizers</h2>
+
+        <ul class="menu-list">
+          <li class="item">
+            <span class="item-name">Small French Fries</span>
+
+            <span class="price">
+              200,000
+              <span class="currency">L.L.</span>
+            </span>
+          </li>
+
+          <li class="item">
+            <span class="item-name">Chicken Wings</span>
+
+            <span class="price">
+              250,000
+              <span class="currency">L.L.</span>
+            </span>
+          </li>
+
+          <li class="item">
+            <span class="item-name">Large French Fries</span>
+
+            <span class="price">
+              300,000
+              <span class="currency">L.L.</span>
+            </span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="card full-width">
+        <h2 class="section-title">🥤 Drinks</h2>
+
+        <ul class="menu-list">
+          <li class="item">
+            <span class="item-name">Pepsi</span>
+
+            <span class="price">
+              100,000
+              <span class="currency">L.L.</span>
+            </span>
+          </li>
+
+          <li class="item">
+            <span class="item-name">Water</span>
+
+            <span class="price">
+              50,000
+              <span class="currency">L.L.</span>
+            </span>
+          </li>
+        </ul>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    © 2026 Yummyz • All rights reserved
+  </footer>
+
 </body>
 </html>
